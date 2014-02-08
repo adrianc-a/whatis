@@ -2,7 +2,7 @@
 cd $HOME
 git clone https://github.com/adrianc-a/whatis.git
 
-if [ -d $HOME/bin ]; then
+if [ ! -d $HOME/bin ]; then
     mkdir ~/bin
 fi
 cd $HOME/bin
