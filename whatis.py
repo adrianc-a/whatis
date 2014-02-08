@@ -10,6 +10,14 @@ import os
 __author__ = 'Adrian Chmielewski-Anders'
 
 
+def get(url):
+    try:
+        resp = urllib.request.urlopen(url)
+    except HTTPError:
+        raise HTTPError
+    return resp.read().decode('utf-8')
+
+
 def remove_tags(html):
     no_tags = ''
     intag = False
@@ -23,6 +31,13 @@ def remove_tags(html):
     return no_tags
 
 
+def did_you_mean(html):
+    index = html.find('<ul>')
+    if not index == -1:
+        return 'Did you mean: \n' + remove_tags(
+            html[index: html.find('</ul>')]) + '\n?'
+
+
 def wiki(what):
     cache = os.getenv('HOME') + '/.whatis/wiki/' + what
     if os.path.exists(cache):
@@ -31,15 +46,16 @@ def wiki(what):
         f.close()
         return definition
     try:
-        resp = urllib.request.urlopen('http://en.wikipedia.org/wiki/' + what)
+        html = get('http://en.wikipedia.org/wiki/' + what)
     except HTTPError:
         return 'The page: ' + 'http://en.wikipedia.org/wiki/' + what + \
                ' does not exist.'
-    html = resp.read().decode('utf-8')
-
     index = html.find('<p>')
+
     if not index == -1:
         definition = remove_tags(html[index:html.find('</p>')])
+        if definition[len(what):] == ' may refer to:':
+            return did_you_mean(html)
         definition += '\nRead more at: http://en.wikipedia.org/wiki/' + what
         f = open(cache, 'w', encoding='utf-8')
         f.write(definition)
@@ -55,10 +71,12 @@ def urban(word, user=0):
         definition = f.read()
         f.close()
         return definition
-    resp = urllib.request.urlopen(
-        'http://api.urbandictionary.com/v0/define?term='
-        + word)
-    j = resp.read().decode('utf-8')
+    try:
+        j = get(
+            'http://api.urbandictionary.com/v0/define?term='
+            + word)
+    except HTTPError:
+        return 'Error, invalid URL'
     definitions = json.loads(j)
     if definitions['result_type'] == 'no_results':
         return "There were no results found for " + word
