@@ -8,7 +8,9 @@ __Command:__
 
 __Response:__
 
-`Baseball is a bat-and-ball game played between two teams of nine players who take turns batting and fielding.`
+```
+Baseball is a bat-and-ball game played between two teams of nine players who take turns batting and fielding.
+```
 
 # installation
 __Note:__ Python 3.3 or higher is required
