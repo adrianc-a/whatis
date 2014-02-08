@@ -21,7 +21,7 @@ def remove_tags(html):
 
 
 def wiki(what):
-    cache = os.getenv('HOME') + '/whatis/wiki/' + what
+    cache = os.getenv('HOME') + '/.whatis/wiki/' + what
     if os.path.exists(cache):
         f = open(cache, 'r')
         definition = f.read()
@@ -50,8 +50,8 @@ def urban(word):
 
 
 def main():
-    if not os.path.exists(os.getenv('HOME') + '/whatis/wiki'):
-        os.makedirs(os.getenv('HOME') + '/whatis/wiki')
+    if not os.path.exists(os.getenv('HOME') + '/.whatis/wiki'):
+        os.makedirs(os.getenv('HOME') + '/.whatis/wiki')
 
     if argv[1] == '-u':
         print(urban(argv[2]))
