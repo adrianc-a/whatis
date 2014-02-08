@@ -6,7 +6,6 @@ import urllib.request
 import urllib.error
 import json
 import os
-import re
 
 __author__ = 'Adrian Chmielewski-Anders'
 
@@ -74,25 +73,28 @@ def urban(word, user=0):
     return return_string
 
 
+def gen_args(arr, add_char='_'):
+    args = ''
+    for arg in arr:
+        if arg == arr[0]:
+            args += arg
+        else:
+            args += add_char + arg
+    return args
+
+
 def main():
     if not os.path.exists(os.getenv('HOME') + '/.whatis/wiki'):
         os.makedirs(os.getenv('HOME') + '/.whatis/wiki')
     if not os.path.exists(os.getenv('HOME') + '/.whatis/urban'):
         os.makedirs(os.getenv('HOME') + '/.whatis/urban')
     if argv[1] == '-u':
-        matches = re.findall(r'-[0-9]+', argv[2])
-        if len(matches) == 0:
-            print(urban(argv[2]))
-        elif len(matches) > 0:
-            print(urban(argv[3], int(matches[0][1:])))
+        if argv[2] == '-n':
+            print(urban(gen_args(argv[4:], '+')))
+        else:
+            print(urban(gen_args(argv[2:], '+')))
     else:
-        args = ''
-        for arg in argv[1:]:
-            if arg == argv[1]:
-                args += arg
-            else:
-                args += '_' + arg
-        print(wiki(args))
+        print(wiki(gen_args(argv[1:])))
 
 
 if __name__ == '__main__':
