@@ -63,6 +63,7 @@ def main():
             else:
                 args += '_' + arg
         print(wiki(args))
+        print("\nto read more go to http://en.wikipedia.org/wiki/" + args)
 
 
 if __name__ == '__main__':
