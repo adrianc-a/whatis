@@ -6,7 +6,7 @@ __Command:__
 
 `whatis baseball`
 
-__Response:__
+__Output:__
 
 ```
 Baseball is a bat-and-ball game played between two teams of nine players who take turns batting and fielding.
@@ -27,3 +27,36 @@ If you want to do this manually the installation is still pretty simple
 2. change the name to `whatis` and run `chmod +x whatis` to make it executable
 
 3. You should move `whatis` to a bin folder somewhere or add it to your path
+
+# advanced usage
+by default, whatis will search wikipedia and if it finds no results, it will search urban dictionary. If you would like to bypass this and search urban dictionary, simply pass it the `-u` option
+
+__Example:__
+
+`whatis -u idk`
+
+__Output:__
+
+```
+Definition:
+Shorthand form for "I Don't Know".
+Example:
+Person1: what do you want to do today?
+Person2: idk you pick
+```
+By default, whatis gets the first result, to get the second or third, simply pass a `-[number]` argument
+
+__Example:__
+
+`whatis -u -2 idk`
+
+__Output:__
+
+```
+Definition:
+[I]
+[D]on't
+[K]now
+Example:
+That's a way easier way to learn what IDK means...
+```
