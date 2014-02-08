@@ -44,11 +44,11 @@ Example:
 Person1: what do you want to do today?
 Person2: idk you pick
 ```
-By default, whatis gets the first result, to get the second or third, simply pass a `-[number]` argument
+By default, whatis gets the first result, to get the second or third, simply pass a `-n` argument
 
 __Example:__
 
-`whatis -u -2 idk`
+`whatis -u -n 2 idk`
 
 __Output:__
 
