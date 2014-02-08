@@ -15,7 +15,7 @@ __Note:__ Python 3.3 or higher is required
 ## via the install script
 If you're on linux/os x and want a quick install simply run the the install script
 
-`curl https://github.com/adrianc-a/whatis/blob/master/install.sh | bash`
+`curl https://raw2.github.com/adrianc-a/whatis/master/install.sh | bash`
 
 ## manually
 If you want to do this manually the installation is still pretty simple
