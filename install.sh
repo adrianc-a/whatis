@@ -1,22 +1,22 @@
 #!/bin/bash
-cd $HOME
-git clone https://github.com/adrianc-a/whatis.git
-
-if [ -d $HOME/bin ]; then
-    mkdir ~/bin
+if [ ! -d $HOME/bin ]; then
+    mkdir $HOME/bin
 fi
-cd $HOME/bin
-cp $HOME/whatis/whatis.py whatis
-chmod +x whatis
+curl https://raw.github.com/adrianc-a/whatis/master/whatis.py > $HOME/bin/whatis
+chmod +x $HOME/bin/whatis
 
 if [[ ! $PATH == *$HOME/bin* ]]; then
-    export PATH=$HOME/bin:$PATH
-    echo "$HOME/bin has been added to your path for this session"
-    echo "if you would like to continue using whatis for you will"
-    echo "need to manually add $HOME/bin to your path in either"
-    echo "your .bashrc or .bash_profile"
+    add_to_path="export PATH=$HOME/bin:$PATH"
+    if [ -d $HOME/.bashrc ]; then
+        cp $HOME/.bashrc $HOME/.saved_bash
+        echo $add_to_path >> $HOME/.bashrc
+    elif [ -d $HOME/.bash_profile ]; then
+        cp $HOME/.bash_profile $HOME/.saved_bash
+        echo $add_to_path >> $HOME/.bash_profile
+    fi
+    echo "$HOME/bin was added to your PATH variable successfully"
+    echo "If there was something that went wrong, your previous bash config"
+    echo "file was saved to $HOME/.saved_bash you may do with this as you wish"
 else
     echo "Installation successful"
 fi
-cd $HOME
-rm -rf whatis   

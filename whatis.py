@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from sys import argv
+from urllib.error import HTTPError
 import urllib.request
+import urllib.error
 import json
 import os
 
@@ -27,8 +29,10 @@ def wiki(what):
         definition = f.read()
         f.close()
         return definition
-
-    resp = urllib.request.urlopen('http://en.wikipedia.org/wiki/' + what)
+    try:
+        resp = urllib.request.urlopen('http://en.wikipedia.org/wiki/' + what)
+    except HTTPError:
+        return 'The page: ' + 'http://en.wikipedia.org/wiki/' + what + ' does not exist.'
     html = str(resp.read())
 
     index = html.find('<p>')
@@ -63,7 +67,6 @@ def main():
             else:
                 args += '_' + arg
         print(wiki(args))
-        print("\nto read more go to http://en.wikipedia.org/wiki/" + args)
 
 
 if __name__ == '__main__':
