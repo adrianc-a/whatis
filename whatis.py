@@ -11,11 +11,7 @@ __author__ = 'Adrian Chmielewski-Anders'
 
 
 def get(url):
-    try:
-        resp = urllib.request.urlopen(url)
-    except HTTPError:
-        raise HTTPError
-    return resp.read().decode('utf-8')
+    return urllib.request.urlopen(url).read().decode('utf-8')
 
 
 def remove_tags(html):
@@ -65,6 +61,7 @@ def wiki(what):
 
 
 def urban(word, user=0):
+    user = int(user)
     cache = os.getenv('HOME') + '/.whatis/urban/' + word + '_' + str(user)
     if os.path.exists(cache):
         f = open(cache, 'r', encoding='utf-8')
@@ -80,7 +77,7 @@ def urban(word, user=0):
     definitions = json.loads(j)
     if definitions['result_type'] == 'no_results':
         return "There were no results found for " + word
-    if user > len(definitions['list']):
+    if user >= len(definitions['list']):
         user = len(definitions['list']) - 1
     return_string = 'Definition:\n'
     return_string += definitions['list'][user]['definition']
@@ -108,7 +105,7 @@ def main():
         os.makedirs(os.getenv('HOME') + '/.whatis/urban')
     if argv[1] == '-u':
         if argv[2] == '-n':
-            print(urban(gen_args(argv[4:], '+')))
+            print(urban(gen_args(argv[4:], '+'), argv[3]))
         else:
             print(urban(gen_args(argv[2:], '+')))
     else:
