@@ -44,8 +44,7 @@ def wiki(what):
     try:
         html = get('http://en.wikipedia.org/wiki/' + what)
     except HTTPError:
-        return 'The page: ' + 'http://en.wikipedia.org/wiki/' + what + \
-               ' does not exist.'
+        return urban(what)
     index = html.find('<p>')
 
     if not index == -1:
