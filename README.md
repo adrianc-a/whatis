@@ -13,16 +13,20 @@ Baseball is a bat-and-ball game played between two teams of nine players who tak
 ```
 
 # installation
-__Note:__ Python 3.3 or higher is required
 ## via the install script
 If you're on linux/os x and want a quick install simply run the the install script
 
+__For python2__:
 `curl https://raw2.github.com/adrianc-a/whatis/master/install.sh | bash`
+
+__For python3__:
+`curl https://raw2.github.com/adrianc-a/whatis/master/python3/install.sh | bash`
 
 ## manually
 If you want to do this manually the installation is still pretty simple
 
-1. download the `whatis.py` however you want
+1. download the `whatis.py` however you want (and for whatever version of python
+you want
 
 2. change the name to `whatis` and run `chmod +x whatis` to make it executable
 

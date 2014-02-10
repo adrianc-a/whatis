@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from sys import argv
-import urllib2
-from urllib2 import URLError
+import urllib.request, urllib.error, urllib.parse
+from urllib.error import URLError
 import json
 import os
 
@@ -10,18 +10,18 @@ __author__ = 'Adrian Chmielewski-Anders'
 
 
 def get(url):
-    return urllib2.urlopen(url).read().decode('utf-8')
+    return urllib.request.urlopen(url).read().decode('utf-8')
 
 
 def cache_def(where, what):
-    f = open(where, 'w')
-    f.write(what.encode('utf-8'))
+    f = open(where, 'w', encoding='utf-8')
+    f.write(what)
     f.close()
 
 
 def read_cache(location):
-    f = open(location, 'r')
-    definition = f.read().decode(encoding='utf-8')
+    f = open(location, 'r', encoding='utf-8')
+    definition = f.read()
     f.close()
     return definition
 
@@ -106,11 +106,11 @@ def main():
         os.makedirs(os.getenv('HOME') + '/.whatis/urban')
     if argv[1] == '-u':
         if argv[2] == '-n':
-            print urban(gen_args(argv[4:], '+'), argv[3])
+            print(urban(gen_args(argv[4:], '+'), argv[3]))
         else:
-            print urban(gen_args(argv[2:], '+'))
+            print(urban(gen_args(argv[2:], '+')))
     else:
-        print wiki(gen_args(argv[1:]))
+        print(wiki(gen_args(argv[1:])))
 
 
 if __name__ == '__main__':
