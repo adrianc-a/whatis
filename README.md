@@ -1,5 +1,5 @@
 # whatis
-Whatis gives you the ability to quickly search wikipedia, urban dictionary quickly from the command line.
+Whatis gives you the ability to quickly search Wikipedia and Urban Dictionary quickly from the command line.
 
 # Sample Usage
 __Command:__
